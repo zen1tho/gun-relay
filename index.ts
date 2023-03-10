@@ -1,6 +1,6 @@
 // Start listening on port 8080 of localhost.
-const server = Deno.listen({ port: 8080 });
-console.log(`HTTP webserver running.  Access it at:  http://localhost:8080/`);
+const server = Deno.listen({ port: 80 });
+console.log(`HTTP webserver running.  Access it at:  http://localhost:80/`);
 
 // Connections to the server will be yielded up as an async iterable.
 for await (const conn of server) {
@@ -17,6 +17,7 @@ async function serveHttp(conn: Deno.Conn) {
   for await (const requestEvent of httpConn) {
     // The native HTTP server uses the web standard `Request` and `Response`
     // objects.
+    console.log("Request sent!");
     const body = `Your user-agent is:\n\n${
       requestEvent.request.headers.get("user-agent") ?? "Unknown"
     }`;
